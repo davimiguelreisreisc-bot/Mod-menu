@@ -15,16 +15,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Gerar Wrapper Oficial do Gradle 8.8 na Nuvem
-        run: |
-          wget https://services.gradle.org/distributions/gradle-8.8-bin.zip
-          unzip -q gradle-8.8-bin.zip
-          gradle-8.8/bin/gradle wrapper --gradle-version 8.8
+      - name: Instalar Gradle Global
+        run: sudo apt-get update && sudo apt-get install -y gradle
 
-      - name: Compilar APK (Debug)
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+      - name: Compilar APK Direto com Gradle
+        run: gradle assembleDebug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
