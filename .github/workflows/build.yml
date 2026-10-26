@@ -15,7 +15,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build APK with Gradle
+      - name: Baixar Gradle Wrapper Automaticamente
+        run: |
+          mkdir -p gradle/wrapper
+          curl -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/8.8/subprojects/wrapper/src/shared/resources/gradle-wrapper.jar
+
+      - name: Build APK com Gradle 8.8
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
@@ -25,4 +30,4 @@ jobs:
         with:
           name: ModMenu-Debug
           path: app/build/outputs/apk/debug/*.apk
-
+          
