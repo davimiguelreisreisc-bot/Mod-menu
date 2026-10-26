@@ -15,12 +15,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Baixar Gradle Wrapper Automaticamente
+      - name: Gerar Wrapper Oficial do Gradle 8.8 na Nuvem
         run: |
-          mkdir -p gradle/wrapper
-          curl -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/8.8/subprojects/wrapper/src/shared/resources/gradle-wrapper.jar
+          wget https://services.gradle.org/distributions/gradle-8.8-bin.zip
+          unzip -q gradle-8.8-bin.zip
+          gradle-8.8/bin/gradle wrapper --gradle-version 8.8
 
-      - name: Build APK com Gradle 8.8
+      - name: Compilar APK (Debug)
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
